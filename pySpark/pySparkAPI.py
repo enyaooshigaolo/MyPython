@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # coding:utf-8
 
 '''
@@ -351,4 +351,190 @@ print(y)
 [1, 3, 2]
 3
 '''
+
+# histogram (example #1)
+x = sc.parallelize([1,3,1,2,3])
+y = x.histogram(buckets = 2)
+print(x.collect())
+print(y)
+
+'''
+[1, 3, 1, 2, 3]
+([1, 2, 3], [2, 3])
+'''
+
+# histogram (example #2)
+x = sc.parallelize([1,3,1,2,3])
+y = x.histogram([0,0.5,1,1.5,2,2.5,3,3.5])
+print(x.collect())
+print(y)
+
+'''
+[1, 3, 1, 2, 3]
+([0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5], [0, 0, 2, 0, 1, 0, 2])
+'''
+
+# mean
+x = sc.parallelize([1,3,2])
+y = x.mean()
+print(x.collect())
+print(y)
+'''
+[1, 3, 2]
+2.0
+'''
+
+# variance方差
+x = sc.parallelize([1,3,2])
+y = x.variance()  # divides by N
+print(x.collect())
+print(y)
+
+'''
+[1, 3, 2]
+0.666666666667
+'''
+
+# stdev 标准偏差
+x = sc.parallelize([1,3,2])
+y = x.stdev()  # divides by N
+print(x.collect())
+print(y)
+ 
+'''
+[1, 3, 2]
+0.816496580928
+'''
+
+# sampleStdev
+x = sc.parallelize([1,3,2])
+y = x.sampleStdev() # divides by N-1
+print(x.collect())
+print(y)
+'''
+[1, 3, 2]
+1.0
+'''
+
+# sampleVariance
+x = sc.parallelize([1,3,2])
+y = x.sampleVariance()  # divides by N-1
+print(x.collect())
+print(y)
+
+''' 
+[1, 3, 2]
+1.0
+'''
+
+# countByValue
+x = sc.parallelize([1,3,1,2,3])
+y = x.countByValue()
+print(x.collect())
+print(y)
+
+'''
+[1, 3, 1, 2, 3]
+defaultdict(<type 'int'>, {1: 2, 2: 1, 3: 2})
+'''
+
+# top
+x = sc.parallelize([1,3,1,2,3])
+y = x.top(num = 3)
+print(x.collect())
+print(y)
+
+''' 
+[1, 3, 1, 2, 3]
+[3, 3, 2]
+'''
+
+# takeOrdered
+x = sc.parallelize([1,3,1,2,3])
+y = x.takeOrdered(num = 3)
+print(x.collect())
+print(y)
+
+'''
+[1, 3, 1, 2, 3]
+[1, 1, 2]
+'''
+
+# take
+x = sc.parallelize([1,3,1,2,3])
+y = x.take(num = 3)
+print(x.collect())
+print(y)
+
+'''
+[1, 3, 1, 2, 3]
+[1, 3, 1]
+'''
+
+# first
+x = sc.parallelize([1,3,1,2,3])
+y = x.first()
+print(x.collect())
+print(y)
+
+''' 
+[1, 3, 1, 2, 3]
+1
+'''
+
+# collectAsMap
+x = sc.parallelize([('C',3),('A',1),('B',2)])
+y = x.collectAsMap()
+print(x.collect())
+print(y)
+
+'''
+[('C', 3), ('A', 1), ('B', 2)]
+{'A': 1, 'C': 3, 'B': 2}
+'''
+
+# keys
+x = sc.parallelize([('C',3),('A',1),('B',2)])
+y = x.keys()
+print(x.collect())
+print(y.collect())
+
+'''
+[('C', 3), ('A', 1), ('B', 2)]
+['C', 'A', 'B']
+'''
+
+# values
+x = sc.parallelize([('C',3),('A',1),('B',2)])
+y = x.values()
+print(x.collect())
+print(y.collect())
+
+'''
+[('C', 3), ('A', 1), ('B', 2)]
+[3, 1, 2]
+'''
+
+# reduceByKey
+x = sc.parallelize([('B',1),('B',2),('A',3),('A',4),('A',5)])
+y = x.reduceByKey(lambda agg, obj: agg + obj)
+print(x.collect())
+print(y.collect())
+
+'''
+[('B', 1), ('B', 2), ('A', 3), ('A', 4), ('A', 5)]
+[('A', 12), ('B', 3)]
+'''
+
+# reduceByKeyLocally
+x = sc.parallelize([('B',1),('B',2),('A',3),('A',4),('A',5)])
+y = x.reduceByKeyLocally(lambda agg, obj: agg + obj)
+print(x.collect())
+print(y)
+
+'''
+[('B', 1), ('B', 2), ('A', 3), ('A', 4), ('A', 5)]
+{'A': 12, 'B': 3}
+'''
+
 
