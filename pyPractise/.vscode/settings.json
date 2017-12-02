@@ -1,0 +1,10 @@
+{
+    "python.autoComplete.extraPaths": [
+        "D:\\Apps\\Anaconda3\\envs\\py27\\Lib\\site-packages",
+        "${env.SPARK_HOME}\\python",
+        "${env.SPARK_HOME}\\python\\pyspark"
+    ],
+    "python.pythonPath":  "D:\\Apps\\Anaconda3\\envs\\py27\\python",
+    "python.linting.flake8Enabled": false,
+    "python.formatting.provider": "autopep8"
+}
